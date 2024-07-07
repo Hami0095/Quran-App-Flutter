@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quran_app/constants/my_colors.dart';
-import 'package:quran_app/screens/settings_screen.dart';
+import 'package:quran_app/screens/home_screen.dart';
 
 void main() {
   runApp(
@@ -20,13 +20,9 @@ class MyApp extends StatelessWidget {
       title: 'Quran App',
       theme: ThemeData(
         primarySwatch: customDarkGreen,
+        primaryColor: customDarkGreen,
       ),
-      home: const SettingsScreen(),
-      // routes: {
-      //   '/': (context) => const SettingsScreen(),
-      //   '/settings': (context) => const SettingsScreen(),
-      //   '/surah-list': (context) => const SurahList(),
-      // },
+      home: const HomeScreen(),
     );
   }
 }

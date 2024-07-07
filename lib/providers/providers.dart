@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import '../services/quran_service.dart';
+import 'package:equatable/equatable.dart';
 
 // State to hold selected language and type
 final selectedLanguageProvider = StateProvider<String>((ref) => '');
@@ -19,11 +19,13 @@ final quranEditionProvider = FutureProvider.family<List<dynamic>, String>(
     throw Exception('Failed to load Quran edition');
   }
 });
+
 // Provider for fetching all editions initially
 final allEditionsProvider =
     FutureProvider<List<Map<String, dynamic>>>((ref) async {
   final response =
       await http.get(Uri.parse('http://api.alquran.cloud/v1/edition'));
+  print(" REQUESTING ALL EDITIONS ");
   if (response.statusCode == 200) {
     final data = json.decode(response.body)['data'];
     return List<Map<String, dynamic>>.from(
@@ -60,26 +62,40 @@ final typesProvider = FutureProvider<List<String>>((ref) async {
 // Provider for fetching filtered editions based on language and type
 final filteredEditionsProvider =
     FutureProvider.family<List<Map<String, dynamic>>, Map<String, String>>(
-        (ref, params) async {
-  final language = params['language'];
-  final type = params['type'];
+  (ref, params) async {
+    print("IN FILTERED EDITIONS PROVIDER");
+    final language = params['language'];
+    final type = params['type'];
 
-  final queryParameters = {
-    if (language != null && language.isNotEmpty) 'language': language,
-    if (type != null && type.isNotEmpty) 'type': type,
-  };
+    // If both language and type are empty, fetch all editions
+    if ((language == null || language.isEmpty) &&
+        (type == null || type.isEmpty)) {
+      final allEditions = await ref.read(allEditionsProvider.future);
+      return allEditions;
+    }
 
-  final uri = Uri.http('api.alquran.cloud', '/v1/edition', queryParameters);
+    // Construct query parameters
+    final queryParameters = <String, String>{};
+    if (language != null && language.isNotEmpty) {
+      queryParameters['language'] = language;
+    }
+    if (type != null && type.isNotEmpty) {
+      queryParameters['type'] = type;
+    }
 
-  final response = await http.get(uri);
-  if (response.statusCode == 200) {
-    final data = json.decode(response.body)['data'];
-    return List<Map<String, dynamic>>.from(
-        data.map((item) => item as Map<String, dynamic>));
-  } else {
-    throw Exception('Failed to load filtered editions');
-  }
-});
+    final uri = Uri.http('api.alquran.cloud', '/v1/edition', queryParameters);
+
+    final response = await http.get(uri);
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body)['data'];
+      return List<Map<String, dynamic>>.from(
+          data.map((item) => item as Map<String, dynamic>));
+    } else {
+      throw Exception('Failed to load filtered editions');
+    }
+  },
+);
+
 final quranServiceProvider = Provider<QuranService>((ref) => QuranService());
 
 final surahsProvider = FutureProvider<List<dynamic>>((ref) async {
@@ -93,19 +109,33 @@ final ayahsProvider =
   return quranService.getAyahs(surahNumber);
 });
 
-class JuzRequest {
+// Define the parameter class using Equatable
+class JuzRequestParameter extends Equatable {
   final int juzNumber;
   final String editionIdentifier;
 
-  JuzRequest(this.juzNumber, this.editionIdentifier);
+  const JuzRequestParameter({
+    required this.juzNumber,
+    required this.editionIdentifier,
+  });
+
+  @override
+  List<Object?> get props => [juzNumber, editionIdentifier];
 }
 
-final juzProvider =
-    FutureProvider.family<List<dynamic>, JuzRequest>((ref, request) async {
+// Define the family provider using JuzRequestParameter
+final juzProvider = FutureProvider.family<List<dynamic>, JuzRequestParameter>(
+    (ref, param) async {
+  print(
+      "Inside juz provider for Juz ${param.juzNumber} and Edition ${param.editionIdentifier}");
+
   final response = await http.get(Uri.parse(
-      'http://api.alquran.cloud/v1/juz/${request.juzNumber}/${request.editionIdentifier}'));
+    'http://api.alquran.cloud/v1/juz/${param.juzNumber}/${param.editionIdentifier}',
+  ));
+
   if (response.statusCode == 200) {
     final data = json.decode(response.body)['data']['ayahs'] as List;
+    print(data);
     return data;
   } else {
     throw Exception('Failed to load Juz');

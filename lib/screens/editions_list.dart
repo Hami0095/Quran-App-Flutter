@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:quran_app/constants/my_colors.dart';
 import '../providers/providers.dart';
 import 'juz_screen.dart';
 
 class EditionsList extends ConsumerWidget {
   final Map<String, String>? params;
 
-  const EditionsList({super.key, this.params});
+  const EditionsList({Key? key, this.params}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,11 +18,22 @@ class EditionsList extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editions List'),
-        backgroundColor: Colors.green,
+        title: Text(
+          'Editions List',
+          style: GoogleFonts.montserrat(),
+        ),
+        backgroundColor: customDarkGreen,
+        foregroundColor: Colors.white,
       ),
       body: editions.when(
         data: (data) {
+          if (data.isEmpty) {
+            return Center(
+                child: Text(
+              'Oops, sorry no results on this filter.',
+              style: GoogleFonts.montserrat(),
+            ));
+          }
           return ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
@@ -55,8 +68,9 @@ class EditionsList extends ConsumerWidget {
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  content: Text(
-                                      'Please enter a valid Juz number (1-30).')),
+                                content: Text(
+                                    'Please enter a valid Juz number (1-30).'),
+                              ),
                             );
                           }
                         },
@@ -69,7 +83,40 @@ class EditionsList extends ConsumerWidget {
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error: $error')),
+        error: (error, stack) {
+          // Display friendly message in case of error
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text(
+                  'Oops, sorry no results on this filter.',
+                  style: GoogleFonts.montserrat(),
+                ),
+                content: Text(
+                  'Nothing Found for this Filter.',
+                  style: GoogleFonts.montserrat(),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context); // Close the error dialog
+                      Navigator.popUntil(
+                          context,
+                          ModalRoute.withName(
+                              '/')); // Navigate back to Home Screen Navigation item 2
+                    },
+                    child: Text(
+                      'OK',
+                      style: GoogleFonts.montserrat(),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          });
+          return Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }

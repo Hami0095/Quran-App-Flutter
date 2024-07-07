@@ -1,44 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quran_app/constants/my_colors.dart';
 import 'package:quran_app/providers/providers.dart';
 
-class JuzScreen extends ConsumerWidget {
-  final String editionIdentifier;
-  final int juzNumber;
+class AyahList extends ConsumerWidget {
+  final int surahNumber;
 
-  const JuzScreen({
-    Key? key,
-    required this.editionIdentifier,
-    required this.juzNumber,
-  }) : super(key: key);
+  const AyahList({super.key, required this.surahNumber});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final parameter = JuzRequestParameter(
-      juzNumber: juzNumber,
-      editionIdentifier: editionIdentifier,
-    );
-    final juzAsyncValue = ref.watch(juzProvider(parameter));
+    final ayahsAsyncValue = ref.watch(ayahsProvider(surahNumber));
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Juz $juzNumber'),
-        backgroundColor: customDarkGreen,
         foregroundColor: Colors.white,
+        title: Text(
+          'Ayahs',
+          style: GoogleFonts.montserrat().copyWith(color: Colors.white),
+        ),
+        backgroundColor: customDarkGreen,
       ),
-      body: juzAsyncValue.when(
+      body: ayahsAsyncValue.when(
         data: (ayahs) {
           return ListView.builder(
             itemCount: ayahs.length,
             itemBuilder: (context, index) {
               final ayah = ayahs[index];
               return Card(
-                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                color: const Color.fromARGB(255, 214, 255, 215),
+                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
                         ayah['text'],
@@ -46,19 +42,20 @@ class JuzScreen extends ConsumerWidget {
                           fontFamily: 'Amiri',
                           fontSize: 18,
                           color: Colors.black87,
+                          height: 2,
                         ),
-                        textAlign: TextAlign.right,
+                        textAlign:
+                            TextAlign.right, // Ensure right-to-left alignment
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 2.5),
                       Text(
-                        'Ayah ${ayah['numberInSurah']}',
-                        style: TextStyle(
+                        'Ayah',
+                        style: GoogleFonts.montserrat().copyWith(
                           fontSize: 14,
-                          color: Colors.grey[600],
+                          color: Colors.grey,
                         ),
+                        textAlign: TextAlign.left,
                       ),
-                      const SizedBox(height: 8),
-                      Divider(color: Colors.grey[300]),
                     ],
                   ),
                 ),
@@ -66,10 +63,8 @@ class JuzScreen extends ConsumerWidget {
             },
           );
         },
-        loading: () => Center(child: CircularProgressIndicator()),
-        error: (error, stack) {
-          return Center(child: Text('Error: $error'));
-        },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stackTrace) => Center(child: Text('Error: $error')),
       ),
     );
   }
