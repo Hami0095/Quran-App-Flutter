@@ -1,7 +1,5 @@
-// screens/editions_list.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../providers/providers.dart';
 import 'juz_screen.dart';
 
@@ -12,8 +10,9 @@ class EditionsList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Use the params to fetch editions if provided, otherwise fetch all editions
-    final editions = ref.watch(allEditionsProvider);
+    final editions = params != null
+        ? ref.watch(filteredEditionsProvider(params!))
+        : ref.watch(allEditionsProvider);
 
     return Scaffold(
       appBar: AppBar(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quran_app/constants/my_colors.dart';
 import 'package:quran_app/providers/providers.dart';
-import 'surah_list.dart';
 import 'editions_list.dart';
 
 class SettingsScreen extends ConsumerWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,7 +17,8 @@ class SettingsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-        backgroundColor: Colors.green,
+        backgroundColor: customDarkGreen,
+        foregroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -61,18 +62,6 @@ class SettingsScreen extends ConsumerWidget {
               },
               loading: () => const CircularProgressIndicator(),
               error: (error, stack) => Text('Error: $error'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SurahList(),
-                  ),
-                );
-              },
-              child: const Text('Continue to Surah List'),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
