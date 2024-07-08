@@ -44,8 +44,7 @@ class AyahList extends ConsumerWidget {
                           color: Colors.black87,
                           height: 2,
                         ),
-                        textAlign:
-                            TextAlign.right, // Ensure right-to-left alignment
+                        textAlign: TextAlign.right,
                       ),
                       const SizedBox(height: 2.5),
                       Text(

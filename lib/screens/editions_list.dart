@@ -84,7 +84,6 @@ class EditionsList extends ConsumerWidget {
         },
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) {
-          // Display friendly message in case of error
           WidgetsBinding.instance.addPostFrameCallback((_) {
             showDialog(
               context: context,
@@ -113,7 +112,7 @@ class EditionsList extends ConsumerWidget {
               ),
             );
           });
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );

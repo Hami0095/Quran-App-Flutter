@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quran_app/constants/my_colors.dart';
 
 class CounterScreen extends StatefulWidget {
   const CounterScreen({super.key});
@@ -37,18 +36,18 @@ class _CounterScreenState extends State<CounterScreen> {
                   backgroundColor: MaterialStatePropertyAll(Colors.white)),
               onPressed: _incrementCounter,
               child: Container(
-                width: 300, // Adjust button size as needed
+                width: 300,
                 height: 300,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.green, // Adjust button color as needed
+                  color: Colors.green,
                 ),
                 child: Center(
                   child: Text(
                     '$_counter',
                     style: GoogleFonts.montserrat(
                       fontSize: 48,
-                      color: Colors.white, // Adjust text color as needed
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -60,7 +59,7 @@ class _CounterScreenState extends State<CounterScreen> {
               child: Text(
                 'Reset',
                 style: GoogleFonts.montserrat(
-                  color: Colors.black, // Adjust text color as needed
+                  color: Colors.black,
                 ).copyWith(fontWeight: FontWeight.bold),
               ),
             ),

@@ -8,10 +8,10 @@ class JuzScreen extends ConsumerWidget {
   final int juzNumber;
 
   const JuzScreen({
-    Key? key,
+    super.key,
     required this.editionIdentifier,
     required this.juzNumber,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -66,7 +66,7 @@ class JuzScreen extends ConsumerWidget {
             },
           );
         },
-        loading: () => Center(child: CircularProgressIndicator()),
+        loading: () => const Center(child: CircularProgressIndicator()),
         error: (error, stack) {
           return Center(child: Text('Error: $error'));
         },

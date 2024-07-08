@@ -6,8 +6,7 @@ import '../providers/providers.dart';
 class QuranEditionScreen extends ConsumerWidget {
   final String editionIdentifier;
 
-  const QuranEditionScreen({Key? key, required this.editionIdentifier})
-      : super(key: key);
+  const QuranEditionScreen({super.key, required this.editionIdentifier});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

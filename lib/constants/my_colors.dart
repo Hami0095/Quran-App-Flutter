@@ -14,12 +14,11 @@ Map<int, Color> customDarkGreenSwatch = {
   900: const Color.fromRGBO(16, 82, 19, 1),
 };
 
-// Create a MaterialColor from the swatch map
 MaterialColor customDarkGreen =
     MaterialColor(0xFF105213, customDarkGreenSwatch);
 
 const MaterialColor customLightGreen = MaterialColor(
-  0xFFD6FFD7, // Replace with the appropriate hex color code
+  0xFFD6FFD7,
   <int, Color>{
     50: Color(0xFFF0FFF1),
     100: Color(0xFFE6FFE7),

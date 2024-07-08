@@ -25,7 +25,7 @@ final allEditionsProvider =
     FutureProvider<List<Map<String, dynamic>>>((ref) async {
   final response =
       await http.get(Uri.parse('http://api.alquran.cloud/v1/edition'));
-  print(" REQUESTING ALL EDITIONS ");
+
   if (response.statusCode == 200) {
     final data = json.decode(response.body)['data'];
     return List<Map<String, dynamic>>.from(
@@ -63,7 +63,6 @@ final typesProvider = FutureProvider<List<String>>((ref) async {
 final filteredEditionsProvider =
     FutureProvider.family<List<Map<String, dynamic>>, Map<String, String>>(
   (ref, params) async {
-    print("IN FILTERED EDITIONS PROVIDER");
     final language = params['language'];
     final type = params['type'];
 
@@ -109,7 +108,6 @@ final ayahsProvider =
   return quranService.getAyahs(surahNumber);
 });
 
-// Define the parameter class using Equatable
 class JuzRequestParameter extends Equatable {
   final int juzNumber;
   final String editionIdentifier;
@@ -123,19 +121,14 @@ class JuzRequestParameter extends Equatable {
   List<Object?> get props => [juzNumber, editionIdentifier];
 }
 
-// Define the family provider using JuzRequestParameter
 final juzProvider = FutureProvider.family<List<dynamic>, JuzRequestParameter>(
     (ref, param) async {
-  print(
-      "Inside juz provider for Juz ${param.juzNumber} and Edition ${param.editionIdentifier}");
-
   final response = await http.get(Uri.parse(
     'http://api.alquran.cloud/v1/juz/${param.juzNumber}/${param.editionIdentifier}',
   ));
 
   if (response.statusCode == 200) {
     final data = json.decode(response.body)['data']['ayahs'] as List;
-    print(data);
     return data;
   } else {
     throw Exception('Failed to load Juz');
