@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quran_app/constants/my_colors.dart';
+import 'package:quran_app/screens/counter_screen.dart';
 import 'package:quran_app/screens/settings_screen.dart';
 import 'package:quran_app/screens/surah_list.dart';
-import 'package:quran_app/screens/editions_list.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static const List<Widget> _widgetOptions = <Widget>[
     SurahList(),
     SettingsScreen(),
+    CounterScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -49,6 +50,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.language),
             label: 'Editions List',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'Counter',
           ),
         ],
         currentIndex: _selectedIndex,

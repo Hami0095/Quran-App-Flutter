@@ -8,7 +8,7 @@ import 'juz_screen.dart';
 class EditionsList extends ConsumerWidget {
   final Map<String, String>? params;
 
-  const EditionsList({Key? key, this.params}) : super(key: key);
+  const EditionsList({super.key, this.params});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -100,15 +100,13 @@ class EditionsList extends ConsumerWidget {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      Navigator.pop(context); // Close the error dialog
-                      Navigator.popUntil(
-                          context,
-                          ModalRoute.withName(
-                              '/')); // Navigate back to Home Screen Navigation item 2
+                      Navigator.pop(context);
+                      Navigator.popUntil(context, ModalRoute.withName('/'));
                     },
                     child: Text(
                       'OK',
-                      style: GoogleFonts.montserrat(),
+                      style: GoogleFonts.montserrat()
+                          .copyWith(color: Colors.white),
                     ),
                   ),
                 ],

@@ -17,3 +17,19 @@ Map<int, Color> customDarkGreenSwatch = {
 // Create a MaterialColor from the swatch map
 MaterialColor customDarkGreen =
     MaterialColor(0xFF105213, customDarkGreenSwatch);
+
+const MaterialColor customLightGreen = MaterialColor(
+  0xFFD6FFD7, // Replace with the appropriate hex color code
+  <int, Color>{
+    50: Color(0xFFF0FFF1),
+    100: Color(0xFFE6FFE7),
+    200: Color(0xFFCEFFCE),
+    300: Color(0xFFB5FFB6),
+    400: Color(0xFF9DFF9D),
+    500: Color(0xFFD6FFD7),
+    600: Color(0xFF7AFF7B),
+    700: Color(0xFF5FFF5F),
+    800: Color(0xFF46FF46),
+    900: Color(0xFF2CFF2C),
+  },
+);
