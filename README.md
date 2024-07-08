@@ -27,4 +27,4 @@ This repository contains the Quran App. Below are some screenshots and a video d
 
 ## Video Demonstration
 
-[![Quran App Video](https://raw.githubusercontent.com/Hami0095/Quran-App-Flutter/main/video_thumbnail.png)](https://raw.githubusercontent.com/yourusername/yourrepository/main/assets/quran_app_day_1.mp4)
+[![Quran App Video](https://raw.githubusercontent.com/Hami0095/Quran-App-Flutter/main/app_icon.png)](https://raw.githubusercontent.com/Hami0095/Quran-App-Flutter/main/quran_app_day_1.mp4)
