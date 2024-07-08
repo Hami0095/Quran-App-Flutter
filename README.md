@@ -1,16 +1,30 @@
-# quran_app
+# Quran App
 
-A new Flutter project.
+This is an open-source application created using the apis from api.alquran.cloud from @meezaan. 
 
-## Getting Started
+You can add more features in it, like prayer times, Azaan etc.
 
-This project is a starting point for a Flutter application.
+So far, we have Quran pak, tafsir etc and Tasbeeh counter. 
 
-A few resources to get you started if this is your first Flutter project:
+This repository contains the Quran App. Below are some screenshots and a video demonstration of the app.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Screenshots
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Surah List
+![Surah List](https://raw.githubusercontent.com/Hami0095/Quran-App-Flutter/main/img2.jpeg)
+
+### Ayah List
+![Ayah List](https://raw.githubusercontent.com/Hami0095/Quran-App-Flutter/main/img3.jpeg)
+
+### Settings List
+![Editions List](https://raw.githubusercontent.com/Hami0095/Quran-App-Flutter/main/img4.jpeg)
+
+### Editions Screen
+![Counter Screen](https://raw.githubusercontent.com/Hami0095/Quran-App-Flutter/main/img5.jpeg)
+
+### Editions Screen
+![Home Screen](https://raw.githubusercontent.com/Hami0095/Quran-App-Flutter/main/img1.jpeg)
+
+## Video Demonstration
+
+[![Quran App Video](https://raw.githubusercontent.com/Hami0095/Quran-App-Flutter/main/video_thumbnail.png)](https://raw.githubusercontent.com/yourusername/yourrepository/main/assets/quran_app_day_1.mp4)
